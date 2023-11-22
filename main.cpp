@@ -25,6 +25,17 @@ void sun(float x, float y, float r, float g, float b){
     glEnd();
 }
 
+void ground(float height, float r, float g, float b){
+    glColor3f(r, g, b);
+
+    glBegin(GL_POLYGON);
+    glVertex2i(0, 0);
+    glVertex2i(0, height);
+    glVertex2i(100, height);
+    glVertex2i(100, 0);
+    glEnd();
+}
+
 
 void Tree(float x, float y, float r, float g, float b) {
     glColor3f(r, g, b);
@@ -50,19 +61,21 @@ void display(void)
     /**
     ** global variables
     **/
-    float ground = 15; //float [] FLOOR = [100, 15, 100]; // clock wise arrangement
+    // float ground = 15; //float [] FLOOR = [100, 15, 100]; // clock wise arrangement
+    float groundLevel = 37;
     float greenTreeColor[3] = {0.04, 0.43, 0.03};
 
     /**
     ** elements
-    ** most elements functions have x,y,r,g,b parameters
-    ** (x,y): position
-    ** (r,g,b): colors
+    ** most element functions have these pattern of parameters
+    ** position parameters such as (x,y), (x only) or (y only)
+    ** color parameters which are always (r,g,b)
     **/
     sky();
+    sun(0,0, 0.92, 0.89, 0.47);
+    ground(groundLevel, 0.72, 0.84, 0.8);
     Tree(0, 10, greenTreeColor[0], greenTreeColor[1], greenTreeColor[2]);
     Tree(100, 10, greenTreeColor[0], greenTreeColor[1], greenTreeColor[2]);
-    sun(0,0, 0.92, 0.89, 0.47);
 
 
     /** *************** should be called at the end of the display function *************** **/
