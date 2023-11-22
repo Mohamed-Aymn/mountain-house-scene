@@ -55,12 +55,30 @@ void Tree(float x, float y, float r, float g, float b) {
     }
 }
 
-float cloudX = 0.0f;
-float cloudY = 0.0f;
-float cloudRadius = 5.0f;
-float cloudRotationAngle = 0.0f;
-
 /*
+void cloud(float x, float y, float r, float g, float b) {
+    int num_segments = 100;
+    float radius = 5.0f;
+
+    glPushMatrix();
+    glBegin(GL_TRIANGLE_FAN);
+    glColor3f(r, g, b);
+    glVertex2f(0.0f, 0.0f); // Center of the circle
+
+    for (int i = 0; i <= num_segments; i++) {
+        float theta = 2.0f * 3.1415926f * float(i) / float(num_segments);
+        float dx = radius * cosf(theta);
+        float dy = radius * sinf(theta);
+        glVertex2f(dx, dy);
+    }
+
+    glEnd();
+
+    glPopMatrix();
+}
+*/
+
+
 void cloud(float x, float y, float r, float g, float b){
     int num_segments = 100;
     float radius = 5;
@@ -80,36 +98,51 @@ void cloud(float x, float y, float r, float g, float b){
 
     glEnd();
 }
-*/
 
 
+void house(float x, float y){
+    // left part
+    glColor3f(0.56, 0.4, 0.51);
 
-
-void cloud(float x, float y, float r, float g, float b) {
-    int num_segments = 100;
-    float radius = 5.0f;
-
-    glPushMatrix();
-    glTranslatef(x, y, 0.0f);
-    glRotatef(cloudRotationAngle, 0.0f, 0.0f, 1.0f);
-
-    glBegin(GL_TRIANGLE_FAN);
-    glColor3f(r, g, b);
-    glVertex2f(0.0f, 0.0f); // Center of the circle
-
-    for (int i = 0; i <= num_segments; i++) {
-        float theta = 2.0f * 3.1415926f * float(i) / float(num_segments);
-        float dx = radius * cosf(theta);
-        float dy = radius * sinf(theta);
-        glVertex2f(dx, dy);
-    }
-
+    glBegin(GL_POLYGON);
+    glVertex2i(x, y);
+    glVertex2i(x, y+10);
+    glVertex2i(x+5, y+20);
+    glVertex2i(x+10, y+10);
+    glVertex2i(x+10, y);
     glEnd();
 
-    glPopMatrix();
+    // right part
+    glColor3f(0.43, 0.31, 0.4);
+
+    glBegin(GL_POLYGON);
+    glVertex2i(x+10, y);
+    glVertex2i(x+20, y);
+    glVertex2i(x+20, y+10);
+    glVertex2i(x+10, y+10);
+    glEnd();
+
+    //  roof
+    glColor3f(0.72, 0.55, 0.68);
+
+    glBegin(GL_POLYGON);
+    glVertex2i(x+10, y+10);
+    glVertex2i(x+20, y+10);
+    glVertex2i(x+15, y+20);
+    glVertex2i(x+5, y+20);
+    glEnd();
+
+    // door
+    glColor3f(0.56, 0.47, 0.02);
+
+    glBegin(GL_POLYGON);
+    glVertex2i(x+2.5, y);
+    glVertex2i(x+2.5, y+5);
+    glVertex2i(x+5, y+7.5);
+    glVertex2i(x+7.5, y+5);
+    glVertex2i(x+7.5, y);
+    glEnd();
 }
-
-
 
 
 void display(void)
@@ -134,6 +167,7 @@ void display(void)
     cloud(70,90,1,1,1);
     cloud(30,90,1,1,1);
     ground(groundLevel, 0.72, 0.84, 0.8);
+    house(70, 30);
     Tree(0, 10, greenTreeColor[0], greenTreeColor[1], greenTreeColor[2]);
     Tree(100, 10, greenTreeColor[0], greenTreeColor[1], greenTreeColor[2]);
 
