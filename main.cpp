@@ -8,6 +8,7 @@
 
 #include <stdlib.h>
 #include <math.h>
+#include <iostream>
 
 void sky(){
     glClear(GL_COLOR_BUFFER_BIT);
@@ -20,7 +21,7 @@ void sun(float x, float y, float r, float g, float b){
     float angle;
     for(int i = 0; i < 360; i++){
         angle = i*3.14/180;
-        glVertex2f(10*cos(angle), 10*sin(angle)+100);
+        glVertex2f(10*cos(angle)+x, 10*sin(angle)+y);
     }
     glEnd();
 }
@@ -36,6 +37,41 @@ void ground(float height, float r, float g, float b){
     glEnd();
 }
 
+
+void mountain(float x, float y, float height, float width, float r, float g, float b){
+    // left triangle
+    glColor3f(r, g, b);
+
+    // mountain structure
+    float midpoint = (x+x+width)/2;
+    std::cout << midpoint;
+    glBegin(GL_POLYGON);
+    glVertex2i(x, y);
+    glVertex2i(midpoint, y + height);
+    glVertex2i(x+width, y);
+    glEnd();
+}
+
+/*
+    glBegin(GL_POLYGON);
+    float angle;
+    for(int i = 0; i < 360; i++){
+        angle = i*3.14/180;
+        glVertex2f(3*cos(angle)+midpoint, 3*sin(angle)+ (y + height-11));
+    }
+    glEnd();
+    glBegin(GL_POLYGON);
+    for(int i = 0; i < 360; i++){
+        angle = i*3.14/180;
+        glVertex2f(3*cos(angle)+(midpoint-6), 3*sin(angle)+ (y + height-11));
+    }
+    glEnd();
+    glBegin(GL_POLYGON);
+    for(int i = 0; i < 360; i++){
+        angle = i*3.14/180;
+        glVertex2f(3*cos(angle)+(midpoint+6), 3*sin(angle)+ (y + height-11));
+    }
+    glEnd();*/
 
 void Tree(float x, float y, float r, float g, float b) {
     glColor3f(r, g, b);
@@ -122,6 +158,16 @@ void house(float x, float y){
     glVertex2i(x+10, y+10);
     glEnd();
 
+    // right part -- window
+    glColor3f(0.8, 0.8, 0);
+
+    glBegin(GL_POLYGON);
+    glVertex2i(x+14, y+5);
+    glVertex2i(x+16, y+5);
+    glVertex2i(x+16, y+8);
+    glVertex2i(x+14, y+8);
+    glEnd();
+
     //  roof
     glColor3f(0.72, 0.55, 0.68);
 
@@ -136,8 +182,8 @@ void house(float x, float y){
     glColor3f(0.56, 0.47, 0.02);
 
     glBegin(GL_POLYGON);
-    glVertex2i(x+2.5, y);
-    glVertex2i(x+2.5, y+5);
+    glVertex2i(x+3, y);
+    glVertex2i(x+3, y+5);
     glVertex2i(x+5, y+7.5);
     glVertex2i(x+7.5, y+5);
     glVertex2i(x+7.5, y);
@@ -163,9 +209,17 @@ void display(void)
     ** color parameters which are always (r,g,b)
     **/
     sky();
-    sun(0,0, 0.92, 0.89, 0.47);
-    cloud(70,90,1,1,1);
-    cloud(30,90,1,1,1);
+    mountain(40, groundLevel, 30, 50, 0.669, 0.594, 0.594);
+    // Snow layer
+    mountain(56.99, groundLevel+20, 10, 17.125, 1, 1, 1);
+    // Snow layer
+    mountain(10, groundLevel, 40, 70, 0.769, 0.694, 0.694);
+    mountain(32, groundLevel+25.5, 15, 26, 1, 1, 1);
+
+
+    sun(100, 100, 0.92, 0.89, 0.47);
+    cloud(80, 90, 1, 1, 1);
+    cloud(20, 90, 1, 1, 1);
     ground(groundLevel, 0.72, 0.84, 0.8);
     house(70, 30);
     Tree(0, 10, greenTreeColor[0], greenTreeColor[1], greenTreeColor[2]);
@@ -203,7 +257,7 @@ int main(int argc, char *argv[])
     // where it should open
     glutInitWindowPosition(0, 0);
 
-    glutCreateWindow("Giza pyramids");
+    glutCreateWindow("Mountain scene");
 
     // Clear Color buffer, sky color
     glClearColor(0.81, 0.92, 0.96, 0);
