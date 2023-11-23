@@ -13,7 +13,7 @@
 	<stddef.h>
 	<GL/gl.h>
 
-1698516231 c:\program files (x86)\codeblocks\mingw\include\gl\glut.h
+976692172 c:\program files (x86)\codeblocks\mingw\include\gl\glut.h
 	<windows.h>
 	<GL/gl.h>
 	<GL/glu.h>
@@ -224,4 +224,13 @@
 
 1341006774 c:\program files (x86)\codeblocks\mingw\include\math.h
 	<_mingw.h>
+
+1700763453 source:d:\work\mountain-house-scene\main.cpp
+	<GLUT/glut.h>
+	<GL/gl.h>
+	<GL/glu.h>
+	<GL/glut.h>
+	<stdlib.h>
+	<math.h>
+	<iostream>
 
