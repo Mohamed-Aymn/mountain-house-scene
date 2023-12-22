@@ -15,6 +15,38 @@ int delta = 0;
 int spokeangle = 0;
 bool left = true;
 
+void idle(){
+    glutPostRedisplay();
+}
+
+void keyboard(unsigned char Key, int x, int y)
+{
+    switch(toupper(Key)){
+        case 'D':
+            if(delta+20 < 100)
+            {
+                left = false;
+                delta++;
+                spokeangle--;
+            }
+            break;
+        case 'A':
+            if(delta != 0)
+            {
+                left = true;
+                delta--;
+                spokeangle++;
+            }
+            break;
+        case 'F':
+            glutFullScreen();
+            break;
+        case 27:
+            exit(0);
+            break;
+    }
+}
+
 void sky(){
     glClear(GL_COLOR_BUFFER_BIT);
 }
@@ -73,10 +105,11 @@ void Tree(float x, float y, float r, float g, float b) {
     }
 }
 
-void Timer(int t){
-    glutTimerFunc(50, Timer, t);
-    glutPostRedisplay();
-}
+// old timer function
+//void Timer(int t){
+//    glutTimerFunc(50, Timer, t);
+//    glutPostRedisplay();
+//}
 
 void cloud(float x, float y, float r, float g, float b){
     int num_segments = 100;
@@ -280,7 +313,7 @@ void display(void)
     Tree(0, 10, greenTreeColor[0], greenTreeColor[1], greenTreeColor[2]);
     Tree(100, 10, greenTreeColor[0], greenTreeColor[1], greenTreeColor[2]);
 
-    if(delta == 0){
+/*    if(delta == 0){
         left = false;
     }
     else if (delta+20 == 100){
@@ -299,8 +332,7 @@ void display(void)
         delta++;
         spokeangle--;
     }
-
-
+*/
 
 
     /** *************** should be called at the end of the display function *************** **/
@@ -344,7 +376,10 @@ int main(int argc, char *argv[])
     gluOrtho2D(0.0, 100.0, 0.0, 100.0);
 
     glutDisplayFunc(display);
-    Timer(0);
+    glutIdleFunc(idle);
+    glutKeyboardFunc(keyboard);
+    //Timer(0);
+
     glutMainLoop();
 
     return EXIT_SUCCESS;
