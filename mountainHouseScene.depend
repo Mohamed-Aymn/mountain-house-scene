@@ -234,3 +234,12 @@
 	<math.h>
 	<iostream>
 
+1703255630 source:c:\users\yehya\work\mountain-house-scene\main.cpp
+	<GLUT/glut.h>
+	<GL/gl.h>
+	<GL/glu.h>
+	<GL/glut.h>
+	<stdlib.h>
+	<math.h>
+	<iostream>
+
